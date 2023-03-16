@@ -1,31 +1,25 @@
-# python3
+from typing import List, Tuple
 
-def parallel_processing(n, m, data):
-    output = []
-    # TODO: write the function for simulating parallel tasks, 
-    # create the output pairs
+def parallel_processing(n: int, data: List[int]) -> List[Tuple[int, int]]:
+    output: List[Tuple[int, int]] = []
+    threads: List[int] = [0] * n
+
+    for t in data:
+        how_soon = min(threads)
+        soon_thread = threads.index(how_soon)
+        output.append((soon_thread, how_soon))
+        threads[soon_thread] += t
 
     return output
 
-def main():
-    # TODO: create input from keyboard
-    # input consists of two lines
-    # first line - n and m
-    # n - thread count 
-    # m - job count
-    n = 0
-    m = 0
+def main() -> None:
+    n = int(input().split()[0])
+    data = list(map(int, input().split()))
 
-    # second line - data 
-    # data - contains m integers t(i) - the times in seconds it takes any thread to process i-th job
-    data = []
+    result = parallel_processing(n, data)
 
-    # TODO: create the function
-    result = parallel_processing(n,m,data)
-    
-    # TODO: print out the results, each pair in it's own line
-
-
+    for i, j in result:
+        print(i, j)
 
 if __name__ == "__main__":
     main()
